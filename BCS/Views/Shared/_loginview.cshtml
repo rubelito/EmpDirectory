@@ -1,0 +1,32 @@
+﻿@model BCS.Identity.LoginModel
+
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-dialog-centered">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="login-modalLabel">Log-in</h4>
+                </div>
+                <div class="modal-body">
+                    <span id="error-message" class="danger-red-text"></span>
+                    <div class="form-group">
+                        <label for="user-name-text" class="control-label">User name:</label>
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @id = "user-name-text" })
+                    </div>
+                    <div class="form-group">
+                        <label for="password-text" class="control-label">Password:</label>
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "password-text" })
+                    </div>
+                    <div class="form-group">
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "", @id = "remember-me-check" })
+                        @Html.LabelFor(m => m.RememberMe)
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="login-button" class="btn btn-primary">Log-in</button>
+                </div>
+            </div>
+        </div>
+    </div>
+

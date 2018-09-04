@@ -1,0 +1,155 @@
+﻿@{
+    ViewBag.Title = "Employee List";
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+
+@Html.AntiForgeryToken()
+<h2>Index</h2>
+<p>
+    @if (ViewBag.ShouldDisplayAddAndEdit)
+    {
+        @Html.ActionLink("Add New", "Add")
+    }
+</p>
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfEmployees, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy, columnToSort = ViewBag.OrderByCriteria }))
+
+@if (ViewBag.IsAdmin)
+{
+    @Html.ActionLink("Download Users", "DownloadAllUser")
+}
+
+@Html.Hidden("idCurrentOrderBy", (object)ViewBag.OrderBy)
+@Html.Hidden("idCurrentColumn", (object)ViewBag.OrderByCriteria)
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            #
+            @Html.ActionLink("Id", "Index", new { orderBy = ViewBag.OrderBy, columnToSort = "Id", willSort = "yes" })
+            <span id="id-Arrow"></span>
+        </th>
+        <th>
+            @Html.ActionLink("UserName", "Index", new { orderBy = ViewBag.OrderBy, columnToSort = "Alphabetical", willSort = "yes" })
+            <span id="alphabetical-Arrow"></span>
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            @Html.ActionLink("User Type", "Index", new { orderBy = ViewBag.OrderBy, columnToSort = "Department", willSort = "yes" })
+            <span id="department-Arrow"></span>
+        </th>
+        <th>
+            @Html.ActionLink("Added Date", "Index", new { orderBy = ViewBag.OrderBy, columnToSort = "HireDate", willSort = "yes" })
+            <span id="hireDate-Arrow"></span>
+        </th>
+        @if (ViewBag.IsAdmin)
+        {
+            <th>
+                Locked
+            </th>
+        }
+
+        <th>
+
+        </th>
+    </tr>
+    @foreach (var item in ViewBag.OnePageOfEmployees)
+    {
+        <tr>
+            <td class="table-row-id">
+                @Html.Raw(item.Id)
+            </td>
+            <td class="table-row-username">
+                @Html.Raw(item.UserName)
+            </td>
+            <td>
+                @Html.Raw(item.FullName)
+            </td>
+            <td>
+                @Html.Raw(item.UserType)
+            </td>
+            <td>
+                @Html.Raw(item.AddedDateStr)
+            </td>
+            @if (ViewBag.IsAdmin)
+            {
+                <td>
+                    @if (item.IsLock)
+                    {
+                        <a class="Delete-link-employee" data-toggle="modal" data-target="#Unlock-User-Modal">Unlock</a>
+                    }
+                </td>
+            }
+            <td>
+                @if (ViewBag.ShouldDisplayAddAndEdit)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @Html.Raw(" | ")
+                    if (item.IsActive)
+                    {
+                        <a class="Delete-link-employee" data-toggle="modal" data-target="#Enable-Disable-employee-modal">Disable</a> @Html.Raw(" | ")
+                    }
+                    else
+                    {
+                        <a class="Delete-link-employee" data-toggle="modal" data-target="#Enable-Disable-employee-modal">Enable</a> @Html.Raw(" | ")
+                    }
+                }
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+
+            </td>
+        </tr>
+    }
+</table>
+
+<br />
+<br />
+
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfEmployees, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy, columnToSort = ViewBag.OrderByCriteria }))
+
+
+<!-- Modal -->
+<div class="modal fade" id="Enable-Disable-employee-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><span id="operation-message"></span>  <span id="delete-employee-message"></span>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="Enable-Disable-employee-button" class="btn btn-primary"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Unlock-User-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Unlock User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><span>Do you want to unlock</span>  <span id="Unload-User-Message"></span>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="Unlock-User-Button" class="btn btn-primary">Unlock!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="idToUnlock">
+<input type="hidden" id="idToActivateOrDeactivate" />
+<input type="hidden" id="hiddenOperation" />

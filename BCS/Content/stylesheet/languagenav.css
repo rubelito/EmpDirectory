@@ -1,0 +1,87 @@
+.navbar-first {
+    border: none;
+}
+
+.navbar-inverse-first {
+    background-color: #353535;
+    border-color: transparent;
+    color: #F0F0F0;
+}
+
+@media (min-width: 768px) {
+    .navbar-first {
+        border-radius: 0px;
+    }
+}
+
+.navbar-inverse-first .navbar-nav-first > li > a {
+    color: #F0F0F0;
+}
+
+.navbar-inverse-first .navbar-nav-first > li > a:hover, .navbar-inverse-first .navbar-nav-first > li > a:focus {
+    color: #F0F0F0;
+    background-color: #2D64A3;
+}
+
+.navbar-nav-first > li > a {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.navbar-first {
+    min-height: 35px !important
+}
+
+.navbar-toggle-first {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.login-section {
+    padding-top: 10px;
+    margin-right: 20px;
+}
+
+.social-media-section {
+    width: 120px;
+}
+
+/*#login-link {
+    display: none;
+}*/
+
+#logout-link > #logon-name {
+    margin-right: 5px;
+}
+
+.right-social-media {
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    background-color: #2D64A3;
+    padding-top: 5px;
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+    margin-left: -4px;
+}
+
+@media (max-width: 767px) {
+    .nav.navbar-nav.pull-left {
+        float: left !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-header-first {
+        display: inline-block;
+        width: 10%;
+    }
+
+    .navbar-inverse-first .navbar-collapse-first, .navbar-inverse-first .navbar-form {
+        border-color: #101010;
+        position: absolute;
+        background-color: #4A525D;
+    }
+}
+

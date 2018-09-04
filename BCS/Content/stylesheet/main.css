@@ -1,0 +1,262 @@
+*, *:before, *:after {
+    -ms-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Play',sans-serif;
+    background-image: url('../image/bg.jpg');
+    background-repeat: repeat;
+    padding: 0px;
+}
+
+.no-underline {
+    text-decoration: none;
+}
+
+header {
+    width: 100%;
+    height: 140px;
+    background-image: url('../image/angdatingdaan-header-bg-blue.jpg');
+    margin-top: -20px;
+}
+
+header > div {
+    text-align: center;
+}
+
+.second-navigation {
+    height: 50px;
+    width: 100%;
+    background-color: white;
+    border-bottom: 1px solid #002F8C;
+}
+
+.news-head {
+    height: 40px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.news-left-blue {
+    width: 16px;
+    height: 100%;
+    background-color: #002D8C;
+    display: inline-block;
+    vertical-align: top;
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.news-left-blue > span {
+    visibility: hidden;
+}
+
+.news-middle {
+    background-color: white;
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+    width: 94%;
+}
+
+.news-time {
+    visibility: hidden;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    padding-top: 10px;
+}
+
+/*-----------------------Content Section*/
+
+#main-content {
+
+}
+
+.content-section {
+    margin-bottom: 40px;
+}
+
+.profile-container {
+    padding: 5px;
+}
+
+.employee-profile {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    background-color: whitesmoke;
+    /*min-width: 115px;*/
+    /*max-width: 280px;*/
+    width: 100%;
+    height: 35vw;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    word-wrap: break-word;
+    border-radius: 5px;
+}
+
+.employee-profile > img {
+    width: 45%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+}
+
+.employee-profile > label {
+    font-size: .8em;
+    line-height: .5em;
+}
+
+.side-tweets {
+    position: relative;
+    background-color: #777777;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 20px;
+}
+
+.tweets {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    border: .5px solid #E5E5E5;
+}
+
+.danger-red-text {
+    color: #de211f;
+}
+
+.Delete-link-employee:hover {
+    cursor: pointer;
+}
+
+#delete-employee-message {
+    font-weight: bolder;
+    color: #de211f;
+}
+
+#Unload-User-Message {
+    font-weight: bolder;
+    color: greenyellow;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid black;
+}
+
+.field-required {
+    color: red;
+}
+
+/*------------------Footer section*/
+.footer-section {
+    width: 100%;
+}
+
+.footer-section > .footer-first {
+    height: 50px;
+    width: 100%;
+    background-color: #5EB1E1;
+    border-top: 4px solid #3686B4;
+}
+
+.footer-section > .footer-second {
+    width: 100%;
+    background-color: #353535;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.footer-about {
+    margin-top: 12px;
+}
+
+.footer-about > .about {
+    color: #9B9DA0;
+}
+
+.footer-about > .about > a {
+    color: #FDFDFD;
+    font-size: 14px;
+}
+
+.footer-about > .about > a:hover {
+    text-decoration: none;
+    color: #2A5E9A;
+}
+
+.social-media-big {
+    padding-top: 8px;
+    width: 35px;
+    height: 35px;
+    margin-left: -2px;
+}
+
+@media (min-width: 768px) {
+    .news-left-blue > span {
+        visibility: visible;
+    }
+
+    .news-left-blue {
+        width: 150px;
+        height: 100%;
+        background-color: #002D8C;
+    }
+
+    .news-middle {
+        width: 60%;
+    }
+
+    .news-time {
+        width: 127px;
+        height: 100%;
+        background-color: #4FA8DB;
+        color: white;
+        visibility: visible;
+    }
+
+    .employee-profile {
+        /*width: 205px;*/
+        /*height: 115px;*/
+        height: 15vw;
+    }
+}
+
+ @media (min-width: 992px) {
+     .news-middle {
+         width: 69%;
+     }
+
+     .footer-section > .footer-first {
+         height: 70px;
+     }
+ }
+
+ @media (min-width: 1200px) {
+     .news-middle {
+         width: 75%;
+     }
+
+     .footer-social-media {
+         text-align: right;
+     }
+
+     .employee-profile {
+         /*width: 280px;*/
+         /*height: 155px;*/
+     }
+
+
+ }
+

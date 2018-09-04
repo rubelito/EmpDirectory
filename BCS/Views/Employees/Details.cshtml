@@ -1,0 +1,97 @@
+﻿@using BCS.Application.Entity
+@using BCS.HtmlHelpers
+@model BCS.Models.DetailUserModel
+
+<div class="row">
+    <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Id, "Id : ")<span> @Model.Id</span>
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.UserName, "UserName : ")<span> @Model.UserName </span>
+        </div>
+        <div class=editor-label>
+            @Html.LabelFor(m => m.UserType, "User Type")
+            <br />
+            @Html.TextBoxFor(m => m.UserType, new { @class = "form-control", @readonly = true })
+        </div>
+    </div>
+</div>
+<br />
+<text>Details</text>
+<hr />
+<div class="row">
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.FirstName, "FirstName")
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @readonly = true })
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.LastName, "LastName")
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @readonly = true })
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Language, "Language")
+            @Html.TextBoxFor(m => m.Language, new { @class = "form-control", @readonly = true })
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.PhoneNumber, "PhoneNumber")
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @readonly = true })
+        </div>
+        @if (@Model.ShowBirthday)
+        {
+            <div class="editor-label">
+                @Html.LabelFor(m => m.BirthDate, "BirthDate")
+                @Html.TextBoxFor(m => m.BirthDate, new { @class = "form-control", @readonly = true })
+            </div>
+        }
+        @if (@Model.ShowAge)
+        {
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Age, "Age : ")<span>@Model.Age</span>
+            </div>
+        }
+        @if (Model.ShowHobbies)
+        {
+            <div class="editor-label">
+                @Html.LabelFor(m => m.HobbiesAndInterest, "Hobbies And Interest")
+                @Html.TextAreaFor(m => m.HobbiesAndInterest, new { @class = "form-control", @readonly = true })
+            </div>
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+        @if (Model.ShowCivilStatus)
+        {
+            <div class="editor-label">
+                @Html.LabelFor(m => m.CivilStatus, "CivilStatus")
+                @Html.TextBoxFor(m => m.CivilStatus, new { @class = "form-control", @readonly = true })
+            </div>
+        }
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Gender, "Gender")
+            @Html.TextBoxFor(m => m.Gender, new { @class = "form-control", @readonly = true})
+        </div>
+        @if (Model.ShowAddress)
+        {
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Address, "Address")
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @readonly = true })
+            </div>
+        }
+    </div>
+    <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Country, "Country")
+            @Html.TextBoxFor(m => m.Country, new { @class = "form-control", @readonly = true })
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.State, "State")
+            @Html.TextBoxFor(m => m.State, new { @class = "form-control", @readonly = true })
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+.nav-second > li {
+    border-right: .5px solid #002F8C;
+    border-left: .5px solid #002F8C;
+}
+
+.navbar-second {
+    border: none;
+}
+
+.navbar-inverse-second {
+    background-color: #2D64A3;
+    border-color: transparent;
+    color: white;
+}
+
+.navbar-nav-second > li > a {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+}
+
+.navbar-second {
+    min-height: 37px !important
+}
+
+@media (min-width: 768px) {
+    .navbar-second {
+        border-radius: 0px;
+    }
+}
+
+.navbar-inverse-second .navbar-nav-second > li > a {
+     color: white;
+     background-color: #2D64A3;
+ }
+
+.navbar-inverse-second .navbar-nav-second > .active > a, .navbar-inverse-second .navbar-nav-second > .active > a:hover, .navbar-inverse-second .navbar-nav-second > .active > a:focus {
+    color: #2D64A3;
+    background-color: white;
+}
+
+.navbar-inverse-second .navbar-nav-second > .black > a{
+    color: white;
+    background-color: black;
+    font-size: 12px;
+}
+
+.navbar-inverse-second .navbar-nav-second > .navy-blue > a,
+.navbar-inverse-second .navbar-nav-second > .navy-blue > a:hover{
+    background-color: #4FA8DB;
+    color: white;
+}
+
+.navbar-inverse-second .navbar-nav-second > li > a:hover, .navbar-inverse-second .navbar-nav-second > li > a:focus {
+    color: #2D64A3;
+    background-color: white;
+}
+
+@media (max-width: 767px) {
+    .navbar-header-second {
+        display: inline-block;
+        width: 50%;
+    }
+
+    .navbar-inverse-second .navbar-collapse-second, .navbar-inverse-second .navbar-form {
+        border-color: #101010;
+        position: absolute;
+        background-color: #4A525D;
+    }
+}
+
+@media only screen and (max-width: 1310px) and (min-width: 1001px) {
+    .navbar-nav-second > li > a {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 1001px) and (min-width: 169px) {
+    .navbar-nav-second > li > a {
+        padding-left: 6px;
+        padding-right: 6px;
+        font-size: 10px;
+    }
+}

@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/Content/stylesheet/bootstrap.css">
+    <link rel="stylesheet" href="~/Content/stylesheet/jquery-ui.css">
+    <link rel="stylesheet" href="~/Content/stylesheet/jquery-ui.structure.css">
+    <link rel="stylesheet" href="~/Content/stylesheet/jquery-ui.theme.css">
+    <link rel="stylesheet" href="~/Content/stylesheet/languagenav.css">
+    <link rel="stylesheet" href="~/Content/stylesheet/secondnav.css">
+    <link rel="stylesheet" href="~/Content/stylesheet/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+    <script src="~/Content/scripts/jquery.js"></script>
+        <script src="~/Content/scripts/jquery-ui.js"></script>
+        <script src="~/Content/scripts/bootstrap.js"></script>
+        <script src="~/Content/scripts/main.js"></script>
+        <script src="~/Content/scripts/login-modal.js"></script>
+
+    <title>Title</title>
+</head>
+<body>
+    <div id="myHeader">
+        <nav class="navbar navbar-first navbar-inverse navbar-inverse-first">
+            <div class="container">
+                <div class="row">
+                    <div class="navbar-header navbar-header-first">
+                        <button type="button" class="pull-left navbar-toggle navbar-toggle-first" data-toggle="collapse"
+                                data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+
+                    <div class="social-media-section pull-right">
+                        <div class="right-social-media">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <div class="right-social-media">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <div class="right-social-media">
+                            <i class="fab fa-google-plus-g"></i>
+                        </div>
+                        <div class="right-social-media">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                    </div>
+                    <div class="login-section pull-right">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div id="logout-link">
+                                <label> Welcome: </label><span id="logon-name"> @Html.ActionLink(User.Identity.Name, "EditProfile", "Employees") </span>
+                                <a href="@Url.Action("LogOut", "Home", null, Request.Url.Scheme)">Log-out</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="login-link">
+                                <a href="#" data-toggle="modal" data-target="#login-modal">Log-in</a>
+                            </div>
+                        }
+
+                    </div>
+                    <div class="collapse navbar-collapse navbar-collapse-first" id="myNavbar">
+                        <ul class="nav navbar-nav navbar-nav-first pull-left" id="top-language">
+                            <li><a href="#">SPANISH</a></li>
+                            <li><a href="#">PORTUGUESE</a></li>
+                            <li><a href="#">ENGLISH</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <header>
+        <div class="container">
+            <a href="#"><img src="~/Content/image/angdatingdaan-website-logo-blue-wide.png"></a>
+        </div>
+    </header>
+    <div class="second-navigation">
+        <nav class="navbar navbar-second navbar-inverse navbar-inverse-second">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar2">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse navbar-collapse-second" id="myNavbar2">
+                    <ul class="nav nav-second navbar-nav navbar-nav-second">
+                        <li class="active"><a href="#"><i class="fas fa-home"></i></a></li>
+                        @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Editor") || User.IsInRole("Viewer")))
+                        {
+                        <li><a href="@Url.Action("Index", "Employees", null, Request.Url.Scheme)"><i class="fas fa-book"></i> Employees</a></li>
+                        }
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-less-than"></i>
+                                <i class="fas fa-greater-than"></i> DEBATE
+                            </a>
+                        </li>
+                        <li><a href="#"><i class="fas fa-info-circle"></i> TUNGKOL SA PROGRAMA</a></li>
+                        <li><a href="#"><i class="fas fa-mobile-alt"></i> CONTACT US</a></li>
+                        <li class="black"><a href="#"><i class="fas fa-tv"></i> LIVE EVENTS</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-nav-second navbar-right">
+                        <li class="navy-blue"><a href="#"><i class="fas fa-search"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <section id="main-content" class="container">
+        <div class="news-head">
+            <div class="news-left-blue">
+                <span>BAGONG VIDEO</span>
+            </div>
+            <div class="news-middle">
+            </div>
+            <div class="news-time">
+                7:36
+            </div>
+        </div>
+        <div class="row">
+            <div class="content-section col-lg-9 col-md-8">
+                @RenderBody()
+
+            </div>
+            <div class="side-tweets col-lg-3 col-md-4">
+                <div class="tweets">
+                    Is There a Scientific Way of Discovering Biblical Truth? (Part 2) #SpecialNationOfGod
+                    https://t.co/LFrPs6Agbb
+                </div>
+                <div class="tweets">CNN is this now their way of making themselves famous?!</div>
+                <div class="tweets">
+                    Is There a Scientific Way of Discovering Biblical Truth? (Part 1)
+                    #GodAppointsChurchLeaders https://t.co/nW5JDVOwF3
+                </div>
+                <div class="tweets">
+                    What to Do When it Feels Like God Is Far Away? https://t.co/dI8GVSJVVB
+                    #GodIsNeverFarFromUs
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="footer-section">
+        <div class="footer-first"></div>
+        <div class="footer-second">
+            <div class="container">
+                <div class="footer-about col-lg-10">
+                    <span class="about">
+                        © 2014-2018 Produced through the help of ALMIGHTY GOD by the <a href="#"> members of Church of God Internation</a> ® | <a href="#">Our Privacy Policy</a> | <a href="#">Contact us</a>
+                    </span>
+                </div>
+                <div class="footer-social-media col-lg-2">
+                    <div class="right-social-media social-media-big">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                    <div class="right-social-media social-media-big">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="right-social-media social-media-big">
+                        <i class="fab fa-google-plus-g"></i>
+                    </div>
+                    <div class="right-social-media social-media-big">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @{Html.RenderPartial("_loginview", new BCS.Identity.LoginModel());}
+
+</body>
+</html>

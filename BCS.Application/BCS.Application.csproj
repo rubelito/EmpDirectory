@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{46D91492-6B63-45A7-A610-195A245DBE2C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BCS.Application</RootNamespace>
+    <AssemblyName>BCS.Application</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entity\ActivityLog.cs" />
+    <Compile Include="Entity\CivilStatus.cs" />
+    <Compile Include="Entity\ErrorLogs.cs" />
+    <Compile Include="Entity\Gender.cs" />
+    <Compile Include="Entity\UserDetail.cs" />
+    <Compile Include="Entity\UserType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Entity\MainUser.cs" />
+    <Compile Include="Domain\IEmployeeRepositoy.cs" />
+    <Compile Include="Service\UserService.cs" />
+    <Compile Include="Domain\SearchParam.cs" />
+    <Compile Include="Domain\OrderyBy.cs" />
+    <Compile Include="Domain\OrderbyCriteria.cs" />
+    <Compile Include="Domain\SearchResult.cs" />
+    <Compile Include="Domain\PaginationLink.cs" />
+    <Compile Include="Domain\ILogRepository.cs" />
+    <Compile Include="Service\ActivityLoggingService.cs" />
+    <Compile Include="Domain\IMonitor.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Service\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

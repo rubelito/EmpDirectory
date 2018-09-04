@@ -1,0 +1,29 @@
+﻿@model BCS.Identity.LoginModel
+
+<br />
+@using (Html.BeginForm(FormMethod.Post))
+{
+<fieldset>
+    <legend> Login</legend>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("Error Login", new { @class = "danger-red-text" })
+    <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+        <div class="editor-field">
+            @Html.LabelFor(m => m.UserName, "User Name")
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "danger-red-text" })
+        </div>
+        <div class="editor-field">
+            @Html.LabelFor(m => m.Password, "Password")
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "danger-red-text" })
+        </div>
+        <div class="editor-field">
+            <br />
+            @Html.CheckBoxFor(m => m.RememberMe)
+            @Html.LabelFor(m => m.RememberMe)
+        </div>
+        <input type="submit" value="Login" />
+    </div>
+</fieldset>
+}

@@ -1,0 +1,100 @@
+﻿[
+    { "Name": "Metro Manila", "region": "NCR", "key": "MM" },
+
+    { "Name": "Abra", "region": "CAR", "key": "ABR" },
+    { "Name": "Apayao", "region": "CAR", "key": "APA" },
+    { "Name": "Benguet", "region": "CAR", "key": "BEN" },
+    { "Name": "Ifugao", "region": "CAR", "key": "IFU" },
+    { "Name": "Kalinga", "region": "CAR", "key": "KAL" },
+    { "Name": "Mountain Province", "region": "CAR", "key": "MOU" },
+
+    { "Name": "Ilocos Norte", "region": "I", "key": "ILN" },
+    { "Name": "Ilocos Sur", "region": "I", "key": "ILS" },
+    { "Name": "La Union", "region": "I", "key": "LUN" },
+    { "Name": "Pangasinan", "region": "I", "key": "PAN" },
+
+    { "Name": "Batanes", "region": "II", "key": "BTN" },
+    { "Name": "Cagayan", "region": "II", "key": "CAG" },
+    { "Name": "Isabela", "region": "II", "key": "ISA" },
+    { "Name": "Nueva Vizcaya", "region": "II", "key": "NUV" },
+    { "Name": "Quirino", "region": "II", "key": "QUI" },
+
+    { "Name": "Aurora", "region": "III", "key": "AUR" },
+    { "Name": "Bataan", "region": "III", "key": "BAN" },
+    { "Name": "Bulacan", "region": "III", "key": "BUL" },
+    { "Name": "Nueva Ecija", "region": "III", "key": "NUE" },
+    { "Name": "Pampanga", "region": "III", "key": "PAM" },
+    { "Name": "Tarlac", "region": "III", "key": "TAR" },
+    { "Name": "Zambales", "region": "III", "key": "ZMB" },
+
+    { "Name": "Batangas", "region": "IV-A", "key": "BTG" },
+    { "Name": "Cavite", "region": "IV-A", "key": "CAV" },
+    { "Name": "Laguna", "region": "IV-A", "key": "LAG" },
+    { "Name": "Quezon", "region": "IV-A", "key": "QUE" },
+    { "Name": "Rizal", "region": "IV-A", "key": "RIZ" },
+
+    { "Name": "Marinduque", "region": "IV-B", "key": "MAD" },
+    { "Name": "Occidental Mindoro", "region": "IV-B", "key": "MDC" },
+    { "Name": "Oriental Mindoro", "region": "IV-B", "key": "MDR" },
+    { "Name": "Palawan", "region": "IV-B", "key": "PLW" },
+    { "Name": "Romblon", "region": "IV-B", "key": "ROM" },
+
+    { "Name": "Albay", "region": "V", "key": "ALB" },
+    { "Name": "Camarines Norte", "region": "V", "key": "CAN" },
+    { "Name": "Camarines Sur", "region": "V", "key": "CAS" },
+    { "Name": "Catanduanes", "region": "V", "key": "CAT" },
+    { "Name": "Masbate", "region": "V", "key": "MAS" },
+    { "Name": "Sorsogon", "region": "V", "key": "SOR" },
+
+    { "Name": "Aklan", "region": "VI", "key": "AKL" },
+    { "Name": "Antique", "region": "VI", "key": "ANT" },
+    { "Name": "Capiz", "region": "VI", "key": "CAP" },
+    { "Name": "Guimaras", "region": "VI", "key": "GUI" },
+    { "Name": "Iloilo", "region": "VI", "key": "ILI" },
+    { "Name": "Negros Occidental", "region": "VI", "key": "NEC" },
+
+    { "Name": "Bohol", "region": "VII", "key": "BOH" },
+    { "Name": "Cebu", "region": "VII", "key": "CEB" },
+    { "Name": "Negros Oriental", "region": "VII", "key": "NER" },
+    { "Name": "Siquijor", "region": "VII", "key": "SIG" },
+
+    { "Name": "Biliran", "region": "VIII", "key": "BIL" },
+    { "Name": "Eastern Samar", "region": "VIII", "key": "EAS" },
+    { "Name": "Leyte", "region": "VIII", "key": "LEY" },
+    { "Name": "Northern Samar", "region": "VIII", "key": "NSA" },
+    { "Name": "Samar", "region": "VIII", "key": "WSA" },
+    { "Name": "Southern Leyte", "region": "VIII", "key": "SLE" },
+
+    { "Name": "Zamboanga del Norte", "region": "IX", "key": "ZAN" },
+    { "Name": "Zamboanga del Sur", "region": "IX", "key": "ZAS" },
+    { "Name": "Zamboanga Sibugay", "region": "IX", "key": "ZSI" },
+
+    { "Name": "Bukidnon", "region": "X", "key": "BUK" },
+    { "Name": "Camiguin", "region": "X", "key": "CAM" },
+    { "Name": "Lanao del Norte", "region": "X", "key": "LAN" },
+    { "Name": "Misamis Occidental", "region": "X", "key": "MSC" },
+    { "Name": "Misamis Oriental", "region": "X", "key": "MSR" },
+
+    { "Name": "Compostela Valley", "region": "XI", "key": "COM" },
+    { "Name": "Davao del Norte", "region": "XI", "key": "DAV" },
+    { "Name": "Davao del Sur", "region": "XI", "key": "DAS" },
+    { "Name": "Davao Occidental", "region": "XI", "key": "DAC" },
+    { "Name": "Davao Oriental", "region": "XI", "key": "DAO" },
+
+    { "Name": "Cotabato", "region": "XII", "key": "NCO" },
+    { "Name": "Sarangani", "region": "XII", "key": "SAR" },
+    { "Name": "South Cotabato", "region": "XII", "key": "SCO" },
+    { "Name": "Sultan Kudarat", "region": "XII", "key": "SUK" },
+
+    { "Name": "Agusan del Norte", "region": "XIII", "key": "AGN" },
+    { "Name": "Agusan del Sur", "region": "XIII", "key": "AGS" },
+    { "Name": "Dinagat Islands", "region": "XIII", "key": "DIN" },
+    { "Name": "Surigao del Norte", "region": "XIII", "key": "SUN" },
+    { "Name": "Surigao del Sur", "region": "XIII", "key": "SUR" },
+
+    { "Name": "Basilan", "region": "ARMM", "key": "BAS" },
+    { "Name": "Lanao del Sur", "region": "ARMM", "key": "LAS" },
+    { "Name": "Maguindanao", "region": "ARMM", "key": "MAG" },
+    { "Name": "Sulu", "region": "ARMM", "key": "SLU" },
+    { "Name": "Tawi-tawi", "region": "ARMM", "key": "TAW" }
+]
