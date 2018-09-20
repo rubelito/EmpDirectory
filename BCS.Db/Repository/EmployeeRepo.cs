@@ -45,7 +45,6 @@ namespace BCS.Db.Repository
         {
             MainUser uToEdit = _dbContent.MainUsers.FirstOrDefault(us => us.Id == u.Id);
             uToEdit.UserType = u.UserType;
-            uToEdit.IsActive = u.IsActive;
             uToEdit.LastLoginAttemp = u.LastLoginAttemp;
             uToEdit.NumberOfWrongLogin = u.NumberOfWrongLogin;
 
@@ -178,10 +177,11 @@ namespace BCS.Db.Repository
         private SearchResult Search(SearchParam search, IQueryable<MainUser> query){
             SearchResult r = new SearchResult();
 
-            r.TotalRecordCount = query.Count();
             r.PageCount = (int)Math.Ceiling((double)r.TotalRecordCount / search.PageSize);
 
             int skipRows = search.CurrentPage * search.PageSize;
+            query = ApplySearch(search, query);
+            r.TotalRecordCount = query.Count();
             query = ApplyOrderBy(search, query);
 
             query = query.Skip(skipRows)
@@ -189,6 +189,19 @@ namespace BCS.Db.Repository
 
             r.Records = query.ToList();
             return r;
+        }
+
+        private IQueryable<MainUser> ApplySearch(SearchParam search, IQueryable<MainUser> query){
+            IQueryable<MainUser> preQuery = query;
+            string searchStr = search.Search;
+
+            if (!string.IsNullOrEmpty(search.Search)){
+                preQuery = preQuery.Where(
+                    u => u.Details.FirstName.Contains(searchStr) 
+                    || u.Details.LastName.Contains(searchStr));
+            }
+
+            return preQuery;
         }
 
         private IQueryable<MainUser> ApplyOrderBy(SearchParam search, IQueryable<MainUser> query)

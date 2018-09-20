@@ -18,6 +18,12 @@ namespace BCS.Models
         }
 
         public UserType UserType { get; set; }
+
+        public string UserTypeStr {get {
+                return UserType.ToString();
+            }
+        }
+
         public bool IsLock { get; set; }
         public bool IsActive { get; set; }
     }

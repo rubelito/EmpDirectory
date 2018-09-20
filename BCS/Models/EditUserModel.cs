@@ -22,7 +22,8 @@ namespace BCS.Models
         public string LastName { get; set; }
         public string Language { get; set; }
         [Required]
-        public long PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? BirthDate { get; set; }
 
         public string HobbiesAndInterest { get; set; }

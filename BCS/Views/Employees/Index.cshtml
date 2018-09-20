@@ -1,155 +1,66 @@
 ﻿@{
-    ViewBag.Title = "Employee List";
-}
-@using PagedList.Mvc;
-@using PagedList;
+                /**/
 
-
-@Html.AntiForgeryToken()
-<h2>Index</h2>
-<p>
-    @if (ViewBag.ShouldDisplayAddAndEdit)
-    {
-        @Html.ActionLink("Add New", "Add")
-    }
-</p>
-@Html.PagedListPager((IPagedList)ViewBag.OnePageOfEmployees, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy, columnToSort = ViewBag.OrderByCriteria }))
-
-@if (ViewBag.IsAdmin)
-{
-    @Html.ActionLink("Download Users", "DownloadAllUser")
+                ViewBag.Title = "Employee List";
 }
 
-@Html.Hidden("idCurrentOrderBy", (object)ViewBag.OrderBy)
-@Html.Hidden("idCurrentColumn", (object)ViewBag.OrderByCriteria)
+<script src="~/Content/scripts/angularjs-1.7.2.js"></script>
+<script src="~/Content/scripts/angular-route.js"></script>
+<script src="~/Content/scripts/angular-animate.js"></script>
+<script src="~/Content/scripts/angular-sanitize.js"></script>
+<script src="~/Content/scripts/ui-bootstrap.js"></script>
+<script src="~/Content/scripts/angular-bootstrap-toggle.min.js"></script>
 
-<table class="table table-striped">
-    <tr>
-        <th>
-            #
-            @Html.ActionLink("Id", "Index", new { orderBy = ViewBag.OrderBy, columnToSort = "Id", willSort = "yes" })
-            <span id="id-Arrow"></span>
-        </th>
-        <th>
-            @Html.ActionLink("UserName", "Index", new { orderBy = ViewBag.OrderBy, columnToSort = "Alphabetical", willSort = "yes" })
-            <span id="alphabetical-Arrow"></span>
-        </th>
-        <th>
-            Name
-        </th>
-        <th>
-            @Html.ActionLink("User Type", "Index", new { orderBy = ViewBag.OrderBy, columnToSort = "Department", willSort = "yes" })
-            <span id="department-Arrow"></span>
-        </th>
-        <th>
-            @Html.ActionLink("Added Date", "Index", new { orderBy = ViewBag.OrderBy, columnToSort = "HireDate", willSort = "yes" })
-            <span id="hireDate-Arrow"></span>
-        </th>
-        @if (ViewBag.IsAdmin)
-        {
-            <th>
-                Locked
-            </th>
-        }
+<script src="~/Content/scripts/EmployeeApp.js"></script>
+<script src="~/Content/scripts/EmployeeService.js"></script>
+<script src="~/Content/scripts/addModalInstanceController.js"></script>
+<script src="~/Content/scripts/EmployeeController.js"></script>
 
-        <th>
 
-        </th>
-    </tr>
-    @foreach (var item in ViewBag.OnePageOfEmployees)
-    {
+
+<h2>Employees</h2>
+<div ng-app="EmployeeApp" ng-controller="EmployeeController">
+    @Html.AntiForgeryToken()
+    <input type="button" value="Add New" ng-click="AddNew()">
+    <br>
+    <ul uib-pagination total-items="TotalItems" max-size="MaxSize" ng-model="CurrentPage" items-per-page="ItemsPerPage"
+        ng-change="PageChanged()"></ul>
+    <br />
+    <label for="searchtext">Find: </label>
+    <input id="SearchText" type="text" placeholder="Search" ng-model="SearchStr">
+    <input type="button" value="Search" ng-click="Search()">
+    <span class="has-error" ng-show="!Result.Success">{{Result.Message}}</span>
+    <br>
+    <a ng-if="IsAdmin" href="Employees/DownloadAllUser">Donwload Users</a>
+    <br />
+    <table class="table table-striped table-hover table-condensed">
         <tr>
-            <td class="table-row-id">
-                @Html.Raw(item.Id)
-            </td>
-            <td class="table-row-username">
-                @Html.Raw(item.UserName)
+            <th class="link-unlock" ng-click="OrderbyCriteria('Id')">Id</th>
+            <th class="link-unlock" ng-click="OrderbyCriteria('Alphabetical')">UserName</th>
+            <th>Full Name</th>
+            <th class="link-unlock" ng-click="OrderbyCriteria('HireDate')">Added Date</th>
+            <th class="link-unlock" ng-click="OrderbyCriteria('Department')">Type</th>
+            <th ng-if="IsAdmin">Lock ?</th>
+            <th ng-if="ShouldDisplayAddAndEdit">Active ?</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="u in Users">
+            <td>{{u.Id}}</td>
+            <td>{{u.UserName}}</td>
+            <td>{{u.FullName}}</td>
+            <td>{{u.AddedDateStr}}</td>
+            <td>{{u.UserTypeStr}}</td>
+            <td ng-if="IsAdmin">
+                <span class="link-unlock" ng-if="u.IsLock" ng-click="UnlockUser(u)">Unlock</span>
+            <td ng-if="ShouldDisplayAddAndEdit">
+                <ui-toggle ng-model="u.IsActive" on="On" off="Off" ng-change="ChangedActive(u)"
+                           class="toggle-success toggle-xs"></ui-toggle>
             </td>
             <td>
-                @Html.Raw(item.FullName)
-            </td>
-            <td>
-                @Html.Raw(item.UserType)
-            </td>
-            <td>
-                @Html.Raw(item.AddedDateStr)
-            </td>
-            @if (ViewBag.IsAdmin)
-            {
-                <td>
-                    @if (item.IsLock)
-                    {
-                        <a class="Delete-link-employee" data-toggle="modal" data-target="#Unlock-User-Modal">Unlock</a>
-                    }
-                </td>
-            }
-            <td>
-                @if (ViewBag.ShouldDisplayAddAndEdit)
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @Html.Raw(" | ")
-                    if (item.IsActive)
-                    {
-                        <a class="Delete-link-employee" data-toggle="modal" data-target="#Enable-Disable-employee-modal">Disable</a> @Html.Raw(" | ")
-                    }
-                    else
-                    {
-                        <a class="Delete-link-employee" data-toggle="modal" data-target="#Enable-Disable-employee-modal">Enable</a> @Html.Raw(" | ")
-                    }
-                }
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
-
+            <input ng-if="ShouldDisplayAddAndEdit" type="button" value="Edit" ng-click="beginEdit(u.Id)">
+            <input type="button" value="Detail" ng-click="ShowUserDetail(u.Id)" />
             </td>
         </tr>
-    }
-</table>
-
-<br />
-<br />
-
-@Html.PagedListPager((IPagedList)ViewBag.OnePageOfEmployees, page => Url.Action("Index", new { page = page, orderBy = ViewBag.OrderBy, columnToSort = ViewBag.OrderByCriteria }))
-
-
-<!-- Modal -->
-<div class="modal fade" id="Enable-Disable-employee-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p><span id="operation-message"></span>  <span id="delete-employee-message"></span>?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" id="Enable-Disable-employee-button" class="btn btn-primary"></button>
-            </div>
-        </div>
-    </div>
+    </table>
 </div>
 
-<div class="modal fade" id="Unlock-User-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Unlock User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p><span>Do you want to unlock</span>  <span id="Unload-User-Message"></span>?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" id="Unlock-User-Button" class="btn btn-primary">Unlock!</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<input type="hidden" id="idToUnlock">
-<input type="hidden" id="idToActivateOrDeactivate" />
-<input type="hidden" id="hiddenOperation" />

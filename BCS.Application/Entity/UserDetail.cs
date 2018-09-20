@@ -18,7 +18,7 @@ namespace BCS.Application.Entity
         public string Language { get; set; }
 
         [Required]
-        public long PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         public bool ShowBirthday { get; set; }
         public DateTime? BirthDate { get; set; }

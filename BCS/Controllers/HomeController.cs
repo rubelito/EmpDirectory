@@ -7,7 +7,14 @@ using BCS.Identity;
 using BCS.Db.Repository;
 using BCS.Models;
 using BCS.Application.Service;
-
+using System.Dynamic;
+using System.Web.Http.Description;
+using BCS.Helper;
+using Newtonsoft.Json;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Text;
+using BCS.Application.Entity;
+using System.Web.Helpers;
 namespace BCS.Controllers.Web
 {
     public class HomeController : Controller
@@ -21,20 +28,8 @@ namespace BCS.Controllers.Web
 
         public ActionResult Index()
         {
-            var mvcName = typeof(Controller).Assembly.GetName();
-            var isMono = Type.GetType("Mono.Runtime") != null;
-
-            ViewData["Version"] = mvcName.Version.Major + "." + mvcName.Version.Minor;
-            ViewData["Runtime"] = isMono ? "Mono" : ".NET";
-
-            try
-            {
-                _empRepo.GetAllUser();
-            }
-            catch (Exception ex)
-            {
-                string message = ex.Message;
-            }
+            ViewData["Version"] = "1.0";
+            ViewData["Runtime"] = "On local machine";
 
             return View();
         }
@@ -157,5 +152,40 @@ namespace BCS.Controllers.Web
             return RedirectToAction("Index", "Home");
         }
 
+        public bool Disable(long id)
+        {
+            HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
+            _empRepo.Disable(id);
+            var emp = _empRepo.GetById(id);
+
+            return true;
+        }
+
+      
+        public bool Enable(long id)
+        {
+            HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
+            _empRepo.Enable(id);
+            var emp = _empRepo.GetById(id);
+
+            return true;
+        }
+
+        public bool Unlock(long id)
+        {
+            HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
+            MainUser uToUnlock = _empRepo.GetById(id);
+            if (uToUnlock != null)
+            {
+                _empRepo.Unlock(uToUnlock.UserName);
+                return true;
+            }
+            return false;
+        }
+    }
+
+    public class MySimpleParam{
+        public string product { get; set; }
+        public string desc { get; set; }
     }
 }

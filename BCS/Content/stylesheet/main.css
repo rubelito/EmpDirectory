@@ -159,6 +159,19 @@ hr {
     color: red;
 }
 
+.input-required {
+    color: red;
+}
+
+.link-unlock {
+    color: #1b6d85;
+}
+
+    .link-unlock:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
 /*------------------Footer section*/
 .footer-section {
     width: 100%;

@@ -12,7 +12,7 @@ namespace BCS.Models
         public string LastName { get; set; }
         public string Language { get; set; }
        
-        public long PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public string BirthDate { get; set; }
         public int Age { get; set; }
 

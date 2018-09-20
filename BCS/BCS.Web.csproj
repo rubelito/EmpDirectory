@@ -196,6 +196,9 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Service\MonitoringService.cs" />
+    <Compile Include="Models\EmployeeStatusResult.cs" />
+    <Compile Include="Models\EmployeePage.cs" />
+    <Compile Include="HtmlHelpers\ValidateAntiForgeryHeader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\scripts\jquery.signalR-2.3.0.js" />
@@ -262,6 +265,20 @@
     <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Content\scripts\angular.js" />
+    <Content Include="Content\scripts\Home.js" />
+    <Content Include="Content\scripts\angular-route.js" />
+    <Content Include="Content\scripts\angular-sanitize.js" />
+    <Content Include="Content\scripts\angular-animate.js" />
+    <Content Include="Content\scripts\EmployeeApp.js" />
+    <Content Include="Content\scripts\EmployeeController.js" />
+    <Content Include="Content\scripts\EmployeeService.js" />
+    <Content Include="Content\scripts\angular-bootstrap-toggle.min.js" />
+    <Content Include="Content\scripts\ui-bootstrap.js" />
+    <Content Include="Content\scripts\addModalInstanceController.js" />
+    <Content Include="Content\stylesheet\angular-bootstrap-toggle.min.css" />
+    <Content Include="Content\View\EditUser.html" />
+    <Content Include="Content\View\UserDetail.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\scripts\.DS_Store" />
@@ -282,6 +299,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Service\" />
+    <Folder Include="Content\View\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

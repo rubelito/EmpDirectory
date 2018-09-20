@@ -1,0 +1,121 @@
+﻿<div>
+    <form name="EmployeeForm" novalidate ng-submit="EmployeeForm.$valid && submitForm()">
+        <div class="modal-header">
+            <h3 ng-if="EmployeeModel.Operation == 'add'">Add user</h3>
+            <h3 ng-if="EmployeeModel.Operation == 'edit'">Edit {{EmployeeModel.UserName}} profile!</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div ng-if="EmployeeModel.Operation == 'add'" class="form-group-sm col-xs-6">
+                    <label for="UserName">User Name: </label>
+                    <span ng-show="EmployeeForm.UserName.$error.required" class="input-required">Required!</span>
+                    <input name="UserName" class="form-control" type="text" id="UserName" ng-model="EmployeeModel.UserName" ng-required="true">
+                </div>
+                <div ng-if="EmployeeModel.Operation == 'edit'" class="form-group-sm col-xs-6">
+                    <label>UserName: </label><span>{{EmployeeModel.UserName}}</span>
+                </div>
+                <div class="form-group-sm col-xs-6">
+                    <label for="UserType">Type: </label>
+                    <select id="UserType" class="form-control" ng-model="EmployeeModel.UserType">
+                        <option ng-repeat="option in EmployeeModel.UserTypeList" ng-value="option.value">
+                            {{option.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="form-group-sm col-xs-6">
+                    <label for="firstName">FirstName: </label>
+                    <span ng-show="EmployeeForm.firstName.$error.required" class="input-required">Required!</span>
+                    <input name="firstName" class="form-control" type="text" id="firstName" ng-model="EmployeeModel.FirstName" ng-required="true">
+                </div>
+                <div class="form-group-sm col-xs-6">
+                    <label for="lastname">LastName: </label>
+                    <span ng-show="EmployeeForm.lastname.$error.required" class="input-required">Required!</span>
+                    <input name="lastname" class="form-control" type="text" id="lastname" ng-model="EmployeeModel.LastName" ng-required="true">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group-sm col-xs-6">
+                    <label for="language">Language: </label>
+                    <input class="form-control" type="text" id="language" ng-model="EmployeeModel.Language">
+                </div>
+                <div class="form-group-sm col-xs-6">
+                    <label for="phoneNumber">Phone Number: </label>
+                    <span ng-show="EmployeeForm.phoneNumber.$error.required || !EmployeeForm.phoneNumber.$valid" class="input-required">Not valid phone number!</span>
+                    <input name="phoneNumber" ng-pattern="/^[0-9]*$/" ng-minlength="11" ng-maxlength="12" class="form-control" type="text" id="phoneNumber" ng-model="EmployeeModel.PhoneNumber" placeholder="ex. 09214085993" ng-required="true">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group-sm col-xs-6">
+                    <label for="BirthDate">BirthDate: </label>
+                    <input type="text" id="BirthDate" class="form-control"
+                           uib-datepicker-popup="mediumDate"
+                           is-open="BirthdateIsOpen.opened"
+                           ng-click="BirthDatePickupOpen()"
+                           ng-model="EmployeeModel.BirthDate" />
+                </div>
+                <div class="form-group-sm col-xs-6">
+                    <label for="hobbiesAndInterest">Hobbies and Interest: </label>
+                    <input class="form-control" type="text" id="hobbiesAndInterest"
+                           ng-model="EmployeeModel.HobbiesAndInterest">
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="form-group-sm col-xs-6">
+                    <label for="Gender">Gender: </label>
+                    <select class="form-control" ng-model="EmployeeModel.Gender">
+                        <option id="Gender" ng-repeat="option in EmployeeModel.GenderList" ng-value="option.value">
+                            {{option.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group-sm col-xs-6">
+                    <label for="CivilStatus">Civil Status: </label>
+                    <select id="CivilStatus" class="form-control" ng-model="EmployeeModel.CivilStatus">
+                        <option ng-repeat="option in EmployeeModel.CivilStatusList" ng-value="option.value">
+                            {{option.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="form-group-sm col-xs-6">
+                    <label for="Country">Country: </label>
+                    <span ng-show="EmployeeForm.Country.$error.required" class="input-required">Required!</span>
+                    <select name="Country" ng-disabled="EmployeeModel.Countries.length < 1" id="Country" class="form-control" ng-model="EmployeeModel.Country" ng-change="CountryChange()" ng-required="true">
+                        <option ng-repeat="option in EmployeeModel.Countries" ng-value="option.Name">
+                            {{option.Name}}
+                        </option>$scope.EmployeeModel
+                    </select>
+                </div>
+                <div class="form-group-sm col-xs-6">
+                    <label for="State">State: </label>
+                    <span ng-show="EmployeeForm.State.$error.required" class="input-required">Required!</span>
+                    <span ng-show="EmployeeForm.State.$error.required" class="input-required">Required!</span>
+                    <input name="State" ng-show="ShowStateTextbox" class="form-control" type="text" id="State" ng-model="EmployeeModel.State" ng-required="true">
+                    <select ng-show="ShowStateDropdown" class="form-control" ng-model="EmployeeModel.State">
+                        <option ng-repeat="option in EmployeeModel.States" ng-value="option.Name">
+                            {{option.Name}}
+                        </option>$scope.EmployeeModel
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group-sm col-xs-6">
+                    <label for="Address">Address: </label>
+                    <input class="form-control" type="text" id="Address"
+                           ng-model="EmployeeModel.Address">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <input ng-disabled="!EmployeeForm.$valid" type="submit" class="btn btn-primary" id="submit" value="Ok">
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+        <!--<input type="button" value="Edit" ng-click="EditUser()">-->
+    </form>
+</div>

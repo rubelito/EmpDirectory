@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using BCS.Models;
 using BCS.Application.Entity;
-
+using BCS.Application.Domain;
 
 namespace BCS.Helper
 {
@@ -196,6 +196,15 @@ namespace BCS.Helper
             u.Details = d;
 
             return u;
+        }
+
+        public static EmployeePage MapResultToEmployeePageModel(SearchResult result){
+            EmployeePage pageModel = new EmployeePage();
+            pageModel.TotalRecords = result.TotalRecordCount;
+            pageModel.PageCount = result.PageCount;
+            pageModel.Models = MapUserToEmployeesModel(result.Records);
+
+            return pageModel;
         }
     }
 }

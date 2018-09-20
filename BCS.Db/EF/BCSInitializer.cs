@@ -33,7 +33,7 @@ namespace BCS.Db.EF
             adminDetails.FirstName = "Rubelito";
             adminDetails.LastName = "Isiderio";
             adminDetails.Language = "Filipino, English";
-            adminDetails.PhoneNumber = 09214085993;
+            adminDetails.PhoneNumber = "09214085993";
             adminDetails.BirthDate = new DateTime(1987, 2, 14);
             adminDetails.HobbiesAndInterest = "Software development and listening to music";
             adminDetails.CivilStatus = CivilStatus.Single;
@@ -55,7 +55,7 @@ namespace BCS.Db.EF
             editorDetails.FirstName = "Rosalea";
             editorDetails.LastName = "Cabrera";
             editorDetails.Language = "Filipno, English";
-            editorDetails.PhoneNumber = 09214085994;
+            editorDetails.PhoneNumber = "09214085994";
             editorDetails.BirthDate = new DateTime(1992, 1, 15);
             editorDetails.HobbiesAndInterest = "Programming and listening to music";
             editorDetails.CivilStatus = CivilStatus.Single;
@@ -76,7 +76,7 @@ namespace BCS.Db.EF
             editorDetails2.FirstName = "Rochelle";
             editorDetails2.LastName = "Capuli";
             editorDetails2.Language = "Filipno, English";
-            editorDetails2.PhoneNumber = 09214085995;
+            editorDetails2.PhoneNumber = "09214085995";
             editorDetails2.BirthDate = new DateTime(1993, 6, 21);
             editorDetails2.HobbiesAndInterest = "Nursing";
             editorDetails2.CivilStatus = CivilStatus.Single;
@@ -97,7 +97,7 @@ namespace BCS.Db.EF
             viewerDetails.FirstName = "Charlotte";
             viewerDetails.LastName = "Moss";
             viewerDetails.Language = "English";
-            viewerDetails.PhoneNumber = 09214085996;
+            viewerDetails.PhoneNumber = "09214085996";
             viewerDetails.BirthDate = new DateTime(1999, 4, 7);
             viewerDetails.HobbiesAndInterest = "Modeling and acting";
             viewerDetails.CivilStatus = CivilStatus.Single;
@@ -118,7 +118,7 @@ namespace BCS.Db.EF
             viewerDetails1.FirstName = "Reynalyn";
             viewerDetails1.LastName = "Torres";
             viewerDetails1.Language = "Filipino, English";
-            viewerDetails1.PhoneNumber = 09214085992;
+            viewerDetails1.PhoneNumber = "09214085992";
             viewerDetails1.BirthDate = new DateTime(1988, 8, 12);
             viewerDetails1.HobbiesAndInterest = "Modeling and acting";
             viewerDetails1.CivilStatus = CivilStatus.Single;
@@ -139,7 +139,7 @@ namespace BCS.Db.EF
             employeeDetails.FirstName = "Lauren";
             employeeDetails.LastName = "Southern";
             employeeDetails.Language = "English";
-            employeeDetails.PhoneNumber = 09214085997;
+            employeeDetails.PhoneNumber = "09214085997";
             employeeDetails.BirthDate = new DateTime(1995, 12, 1);
             employeeDetails.HobbiesAndInterest = "Politices and multi media";
             employeeDetails.CivilStatus = CivilStatus.Single;
@@ -160,7 +160,7 @@ namespace BCS.Db.EF
             employeeDetails1.FirstName = "Faith";
             employeeDetails1.LastName = "Goldy";
             employeeDetails1.Language = "English";
-            employeeDetails1.PhoneNumber = 09214085998;
+            employeeDetails1.PhoneNumber = "09214085998";
             employeeDetails1.BirthDate = new DateTime(1999, 9, 20);
             employeeDetails1.HobbiesAndInterest = "Singing and Acting";
             employeeDetails1.CivilStatus = CivilStatus.Single;
@@ -181,7 +181,7 @@ namespace BCS.Db.EF
             employeeDetails2.FirstName = "Anna";
             employeeDetails2.LastName = "Marisax";
             employeeDetails2.Language = "Polish, English";
-            employeeDetails2.PhoneNumber = 09214085999;
+            employeeDetails2.PhoneNumber = "09214085999";
             employeeDetails2.BirthDate = new DateTime(1992, 3, 19);
             employeeDetails2.HobbiesAndInterest = "Modeling and being a thot";
             employeeDetails2.CivilStatus = CivilStatus.Single;

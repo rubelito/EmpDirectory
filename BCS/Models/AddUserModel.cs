@@ -18,7 +18,7 @@ namespace BCS.Models
         [Required]
         public UserType UserType { get; set; }
 
-        [Required]         public string FirstName { get; set; }         [Required]         public string LastName { get; set; }         public string Language { get; set; }         [Required]         public long PhoneNumber { get; set; }         public DateTime? BirthDate { get; set; }          public string HobbiesAndInterest { get; set; }         public CivilStatus CivilStatus { get; set; }
+        [Required]         public string FirstName { get; set; }         [Required]         public string LastName { get; set; }         public string Language { get; set; }         [Required]         public string PhoneNumber { get; set; }         public DateTime? BirthDate { get; set; }          public string HobbiesAndInterest { get; set; }         public CivilStatus CivilStatus { get; set; }
         [Required]         public Gender Gender { get; set; }         public string Address { get; set; }
 
         public List<Country> Countries { get; set; }

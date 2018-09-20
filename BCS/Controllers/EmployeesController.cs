@@ -5,17 +5,13 @@ using System.Web.Mvc;
 using BCS.Application.Entity;
 using BCS.Application.Domain;
 using BCS.Application.Service;
-using BCS.Hubs;
 using BCS.Models;
 using BCS.Helper;
-using Microsoft.AspNet.SignalR;
 using PagedList;
 using System.Text;
-using System.IO;
-using System.Threading.Tasks;
 using System.Net.Http;
-using Newtonsoft.Json.Linq;
-using System.Web.Services.Protocols;
+using System.Web.Helpers;
+using BCS.HtmlHelpers;
 
 namespace BCS.Controllers
 {
@@ -38,193 +34,148 @@ namespace BCS.Controllers
         }
 
         [System.Web.Mvc.Authorize(Roles = "Admin, Editor, Viewer")]
-        public object Index(string orderBy, string columnToSort, int? page, string willSort = "no")
-        {
-            HideLinksBasedOnRoles();
-            var currentPage = (page ?? 1) - 1;
-            ViewBag.CurrentPage = currentPage;
-
-            SearchParam search = BuildSearch(willSort, orderBy, columnToSort, currentPage);
-
-            UserService service = new UserService(_empRepo);
-            SearchResult result = service.GetAllUser(User.Identity.Name, search);
-            List<EmployeeModel> models = UserHelper.MapUserToEmployeesModel(result.Records);
-
-            ViewBag.OnePageOfEmployees = new StaticPagedList<EmployeeModel>(models, currentPage + 1, search.PageSize, result.TotalRecordCount);
-
+        public ActionResult Index(){
             return View();
         }
 
-        private SearchParam BuildSearch(string willSort, string orderBy, string columnToSort, int page)
+        [System.Web.Mvc.Authorize(Roles = "Admin, Editor, Viewer")]
+        public JsonResult Search(int? page, int? pageSize, string orderBy, string orderByColumn, string search)
         {
-            SearchParam search = new SearchParam();
-            search.PageSize = 4;
-            search.CurrentPage = page;
-            if (willSort == "yes")
-                orderBy = orderBy == "Descending" ? "Ascending" : "Descending";
+            HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
+            EmployeePage pageModel = new EmployeePage();
 
-            if (!string.IsNullOrEmpty(orderBy)) // orderby
+            try
             {
-                if (orderBy == "Ascending")
-                {
-                    search.OrderyBy = OrderyBy.Ascending;
-                    ViewBag.OrderBy = "Ascending";
-                }
-                else
-                {
-                    search.OrderyBy = OrderyBy.Descending;
-                    ViewBag.OrderBy = "Descending";
-                }
-            }
-            else
-            {
-                search.OrderyBy = OrderyBy.Descending;
-                ViewBag.OrderBy = "Descending";
-            }
+                MainUser u = _empRepo.GetByUserName(User.Identity.Name);
+                SearchParam param = new SearchParam();
+                param.CurrentPage = (page ?? 1) - 1;
+                param.PageSize = pageSize ?? 5;
+                param.OrderyBy = orderBy == "Descending" ? OrderyBy.Descending : OrderyBy.Ascending;
+                param.OrderbyCriteria = SetOrderByColumn(orderByColumn);
+                param.Search = search;
 
-            if (!string.IsNullOrEmpty(columnToSort))
-            {
-                if (columnToSort == "Id")
-                {
-                    search.OrderbyCriteria = OrderbyCriteria.Id;
-                    ViewBag.OrderByCriteria = "Id";
-                }
-                else if (columnToSort == "HireDate")
-                {
-                    search.OrderbyCriteria = OrderbyCriteria.HireDate;
-                    ViewBag.OrderByCriteria = "HireDate";
-                }
-                else if (columnToSort == "Department")
-                {
-                    search.OrderbyCriteria = OrderbyCriteria.Department;
-                    ViewBag.OrderByCriteria = "Department";
-                }
-                else if (columnToSort == "Alphabetical")
-                {
-                    search.OrderbyCriteria = OrderbyCriteria.Alphabetical;
-                    ViewBag.OrderByCriteria = "Alphabetical";
-                }
+                UserService service = new UserService(_empRepo);
+                SearchResult result = service.GetAllUser(u.UserName, param);
+                pageModel = UserHelper.MapResultToEmployeePageModel(result);
+                pageModel.IsAdmin = (u.UserType == UserType.Admin);
+                pageModel.ShouldDisplayAddAndEdit = (u.UserType == UserType.Admin || u.UserType == UserType.Editor);
+
             }
-            else
+            catch (Exception ex)
             {
-                search.OrderbyCriteria = OrderbyCriteria.Id;
-                ViewBag.OrderbyCriteria = "Id";
+                string message = ex.Message;
             }
 
-            return search;
+            return Json(pageModel, JsonRequestBehavior.AllowGet);
         }
 
-
-        private void HideLinksBasedOnRoles()
+        private OrderbyCriteria SetOrderByColumn(string column)
         {
-            if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+            OrderbyCriteria criteria = OrderbyCriteria.Id;
+            if (column == "Id")
             {
-                ViewBag.ShouldDisplayAddAndEdit = true;
+                criteria = OrderbyCriteria.Id;
             }
-            else
-                ViewBag.ShouldDisplayAddAndEdit = false;
-
-
-            if (User.IsInRole("Admin"))
+            else if (column == "HireDate")
             {
-                ViewBag.IsAdmin = true;
+                criteria = OrderbyCriteria.HireDate;
             }
-            else
-                ViewBag.IsAdmin = false;
+            else if (column == "Department")
+            {
+                criteria = OrderbyCriteria.Department;
+            }
+            else if (column == "Alphabetical")
+            {
+                criteria = OrderbyCriteria.Alphabetical;
+            }
+
+            return criteria;
         }
 
-        //[Authorize(Roles = "Admin, Editor")]
-        //[HttpGet]
-        //[NoAsyncTimeout]
-        //[Route("")]
-        //public async Task<ActionResult> Add()
+        [System.Web.Mvc.Authorize(Roles = "Admin, Editor")]
+        [ValidateAntiForgeryHeader]
+        [HttpPost]
+        public JsonResult AddPerson(AddUserModel model)
+        {
+            HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
+
+            EmployeeStatusResult result = new EmployeeStatusResult();
+            try
+            {
+                var uToAdd = UserHelper.MapAddUserModelToUser(model);
+                uToAdd.Password = "default";
+                uToAdd.IsActive = true;
+                uToAdd.AddedDate = DateTime.Now;
+                _empRepo.Add(uToAdd);
+                result.Success = true;
+                result.Message = "User Added";
+                LogActivity("Add User", uToAdd.UserName + " is added by " + User.Identity.Name);
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = CreateExceptionMessage(ex);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public JsonResult GetUserById(long id)
+        {
+            HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
+            var emp = _empRepo.GetById(id);
+            EditUserModel model = UserHelper.MapUserToEditUserModel(emp);
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult EditUser(){
+            return View();
+        }
+
+        [ValidateAntiForgeryHeader]
+        [System.Web.Mvc.Authorize(Roles = "Admin, Editor")]
+        [HttpPost]
+        public JsonResult EditUser(EditUserModel model)
+        {
+            HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
+            EmployeeStatusResult result = new EmployeeStatusResult();
+            try
+            {
+                var u = UserHelper.MapEditUserModelToUser(model);
+                _empRepo.Edit(u);
+                result.Success = true;
+                result.Message = "User Edited";
+                LogActivity("Edit User", model.UserName + " is edited by " + User.Identity.Name);
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = CreateExceptionMessage(ex);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        //[System.Web.Mvc.Authorize(Roles = "Admin, Editor, Viewer")]
+        //public ActionResult Details(long id)
         //{
-        //    AddUserModel model = new AddUserModel();
-        //     model.Countries = await GetCountries();
-        //    //return View("Add", "_Layout", model);
-        //    //model.Countries = new List<Country>();
-        //    return View("Add", model);
+        //    MainUser u = _empRepo.GetById(id);
+        //    DetailUserModel model = UserHelper.MapUserToDetailUserModel(u);
+
+        //    return View(model);
         //}
 
-        [System.Web.Mvc.Authorize(Roles = "Admin, Editor")]
-        public ActionResult Add()
-        {
-            AddUserModel model = new AddUserModel();
-            model.Countries = GetCountries();
-            //model.States = GetStates("United States of America");
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [System.Web.Mvc.Authorize(Roles = "Admin, Editor")]
-        public ActionResult Add(AddUserModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                if (_empRepo.AlreadyRegistered(model.UserName))
-                {
-                    ModelState.AddModelError("UserName", "UserName already used.");
-                }
-                else
-                {
-                    if (IsValidCountryAndStates(model.Country, model.State))
-                    {
-                        MainUser u = UserHelper.MapAddUserModelToUser(model);
-                        u.IsActive = true;
-                        u.AddedDate = DateTime.Now;
-                        _empRepo.Add(u);
-                        LogActivity("Add User", u.UserName + " is Added by " + User.Identity.Name);
-
-                        return RedirectToAction("Index", "Employees");
-                    }
-                    ModelState.AddModelError("Country", "Country or state is invalid");
-                }
-            }
-
-            model.Countries = GetCountries();
-            return View(model);
-        }
-
-        [System.Web.Mvc.Authorize(Roles = "Admin, Editor")]
-        public ActionResult Edit(long id)
-        {
-            MainUser u = _empRepo.GetById(id);
-            EditUserModel model = UserHelper.MapUserToEditUserModel(u);
-            model.Countries = GetCountries();
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [System.Web.Mvc.Authorize(Roles = "Admin, Editor")]
-        public ActionResult Edit(EditUserModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                if (IsValidCountryAndStates(model.Country, model.State))
-                {
-                    MainUser u = UserHelper.MapEditUserModelToUser(model);
-                    _empRepo.Edit(u);
-                    LogActivity("Edit User", model.UserName + " is Edited by " + User.Identity.Name);
-
-                    return RedirectToAction("Index", "Employees");
-                }
-                ModelState.AddModelError("Country", "Country or state is invalid");
-            }
-
-            model.Countries = GetCountries();
-            return View(model);
-        }
-
         [System.Web.Mvc.Authorize(Roles = "Admin, Editor, Viewer")]
-        public ActionResult Details(long id)
+        public JsonResult Details(long id)
         {
+            HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
             MainUser u = _empRepo.GetById(id);
             DetailUserModel model = UserHelper.MapUserToDetailUserModel(u);
 
-            return View(model);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [System.Web.Mvc.Authorize]
@@ -256,7 +207,7 @@ namespace BCS.Controllers
         }
 
         [System.Web.Mvc.Authorize(Roles = "Admin, Editor")]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryHeader]
         public bool Disable(long id)
         {
             _empRepo.Disable(id);
@@ -267,7 +218,7 @@ namespace BCS.Controllers
         }
 
         [System.Web.Mvc.Authorize(Roles = "Admin, Editor")]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryHeader]
         public bool Enable(long id)
         {
             _empRepo.Enable(id);
@@ -278,7 +229,7 @@ namespace BCS.Controllers
         }
 
         [System.Web.Mvc.Authorize(Roles = "Admin")]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryHeader]
         public bool Unlock(long id)
         {
             MainUser uToUnlock = _empRepo.GetById(id);
@@ -301,6 +252,14 @@ namespace BCS.Controllers
             return File(data, mime, filename);
         }
 
+
+        public JsonResult GetListOfCountry(){
+            HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
+
+            var countries = GetCountries();
+            return Json(countries, JsonRequestBehavior.AllowGet);
+        }
+
         public List<Country> GetCountries()
         {
             string path = @"https://restcountries.eu/rest/v2/all";
@@ -321,9 +280,9 @@ namespace BCS.Controllers
         }
 
         [HttpPost]
-        [System.Web.Mvc.Authorize]
         public JsonResult GetStates(string country)
         {
+            HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
             List<State> states = GetStatesProvince(country);
             return Json(states, JsonRequestBehavior.AllowGet);
         }
@@ -368,6 +327,21 @@ namespace BCS.Controllers
             }
 
             return isValid;
+        }
+
+        private string CreateExceptionMessage(Exception ex)
+        {
+            StringBuilder str = new StringBuilder(ex.Message);
+            if (ex.InnerException != null)
+            {
+                str.Append(" -------- " + ex.InnerException.Message);
+                if (ex.InnerException.InnerException != null)
+                {
+                    str.Append(" -------- " + ex.InnerException.InnerException.Message);
+                }
+            }
+
+            return str.ToString();
         }
 
         //public async Task<List<Country>> GetCountries()

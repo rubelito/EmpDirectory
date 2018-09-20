@@ -1,0 +1,101 @@
+﻿<div>
+    <div class="modal-header">
+        <h3>{{EmployeeModel.UserName}} profile!</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="form-group-sm col-xs-6">
+                <label for="UserName">User Name: </label>
+                <input name="UserName" class="form-control" readonly="True" type="text" id="UserName"
+                       ng-model="EmployeeModel.UserName">
+            </div>
+            <div class="form-group-sm col-xs-6">
+                <label for="UserType">User Type: </label>
+                <input name="UserType" class="form-control" readonly="True" type="text" id="UserType"
+                       ng-model="EmployeeModel.UserType">
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="form-group-sm col-xs-6">
+                <label for="firstName">FirstName: </label>
+                <input name="firstName" class="form-control" readonly="True" type="text" id="firstName"
+                       ng-model="EmployeeModel.FirstName">
+            </div>
+            <div class="form-group-sm col-xs-6">
+                <label for="lastname">LastName: </label>
+                <input name="lastname" class="form-control" readonly="True" type="text" id="lastname"
+                       ng-model="EmployeeModel.LastName">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group-sm col-xs-6">
+                <label for="language">Language: </label>
+                <input class="form-control" type="text" readonly="True" id="language" ng-model="EmployeeModel.Language">
+            </div>
+            <div class="form-group-sm col-xs-6">
+                <label for="phoneNumber">Phone Number: </label>
+                <input name="phoneNumber" readonly="True" ng-minlength="11" ng-maxlength="12" class="form-control"
+                       type="text" id="phoneNumber" ng-model="EmployeeModel.PhoneNumber">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group-sm col-xs-6">
+                <div ng-if="EmployeeModel.ShowBirthday">
+                    <label>Age : </label> {{EmployeeModel.Age}}
+                    <br />
+                    <label for="BirthDate">BirthDate: </label>
+                    <input name="birthDate" readonly="True" class="form-control" type="text" id="BirthDate"
+                           ng-model="EmployeeModel.BirthDate">
+                </div>
+            </div>
+            <div class="form-group-sm col-xs-6">
+                <div ng-if="EmployeeModel.ShowHobbies">
+                    <label for="hobbiesAndInterest">Hobbies and Interest: </label>
+                    <input class="form-control" type="text" readonly="True" id="hobbiesAndInterest"
+                           ng-model="EmployeeModel.HobbiesAndInterest">
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="form-group-sm col-xs-6">
+                <label for="Gender">Gender: </label>
+                <input name="gender" readonly="True" class="form-control" type="text" id="Gender"
+                       ng-model="EmployeeModel.Gender">
+            </div>
+            <div class="form-group-sm col-xs-6">
+                <div ng-if="EmployeeModel.ShowCivilStatus">
+                <label for="CivilStatus">Civil Status: </label>
+                <input name="civilStatus" readonly="True" class="form-control" type="text" id="CivilStatus"
+                       ng-model="EmployeeModel.CivilStatus">
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="form-group-sm col-xs-6">
+                <label for="Country">Country: </label>
+                <input name="country" readonly="True" class="form-control" type="text" id="Country"
+                       ng-model="EmployeeModel.Country">
+            </div>
+            <div class="form-group-sm col-xs-6">
+                <label for="State">State: </label>
+                <input name="state" readonly="True" class="form-control" type="text" id="State"
+                       ng-model="EmployeeModel.State">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group-sm col-xs-6">
+                <div ng-if="EmployeeModel.ShowAddress">
+                    <label for="Address">Address: </label>
+                    <input name="address" readonly="True" class="form-control" type="text" id="Address"
+                           ng-model="EmployeeModel.Address">
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancel()">Close</button>
+        </div>
+    </div>
